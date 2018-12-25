@@ -55,5 +55,4 @@ io.on('connection', function(socket) {
     socket.on('send_text', function(){
         io.emit('receive_text');
     });
-
 });

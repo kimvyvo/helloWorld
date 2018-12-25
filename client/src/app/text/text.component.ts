@@ -20,7 +20,6 @@ export class TextComponent implements OnInit {
 
   ngOnInit() {
     this._route.parent.params.subscribe((params: Params) => {
-      console.log(params);
       this.current_session_id = params.id;
       this._shareService.socket.emit('init_text');
       this._shareService.socket.on('receive_text', () => {
@@ -29,31 +28,30 @@ export class TextComponent implements OnInit {
     });
   }
   sendText() {
-    const observable = this._httpService.getSingleSession(this.current_session_id);
-    observable.subscribe((data: any) => {
-      console.log('Got a single session. Result:', data);
-      const new_msg = data.data.chat_content + '<div class="row mb-2"><div class="col col-sm-3 text-right blue"><i class="fas fa-user-circle"></i> ' +
-        this._shareService.my_user_name + ' </div><div class="col col-sm-7 px-4 py-2 bg-blue" style="border-radius:20px"> ' +
-          this.input_message + '</div></div>';
-      const observable2 = this._httpService.editSession(this.current_session_id, {chat_content: new_msg});
-      observable2.subscribe((data2: any) => {
-        console.log('Updated session. Result:', data2);
-        this._shareService.socket.emit('send_text');
-        this.input_message = '';
+    if (this.input_message.length > 0){
+      const observable = this._httpService.getSingleSession(this.current_session_id);
+      observable.subscribe((data: any) => {
+        const curr_time = new Date();
+
+        const new_msg = '<div class="mb-1 px-2 text-dark-blue"><i class="fas fa-user-circle"></i> ' + this._shareService.my_user_name + ' </div><div class="col m-0 px-4 py-2 bg-light-blue border-rad"> ' + this.input_message + '</div><div class="col m-0 px-4 pb-2 text-right text-dark-blue"><small>' + curr_time.toLocaleTimeString() + '</small></div>' + data.data.chat_content;
+      
+        const source_lang = this._dashboard.lang_setting.lang_spoken.split('-')[0];
+
+        const observable2 = this._httpService.getTranslation(encodeURI(this.input_message), source_lang, this._dashboard.lang_setting.lang_to);
+        observable2.subscribe(data2 => {
+          const new_trans = '<div class="mb-1"><small>' + this._shareService.my_user_name + ' (chat)</small></div>' + '<div class="col m-0 p-2 bg-light border-rad">' + data2['data']['translations'][0]['translatedText'] + '</div>' + '<div class="col text-right"><small>' + curr_time.toLocaleTimeString() + '</small></div>' + data.data.trans_content 
+          const observable3 = this._httpService.editSession(this.current_session_id, {chat_content: new_msg, trans_content: new_trans});
+          observable3.subscribe((data3: any) => {
+            this._shareService.socket.emit('send_text');
+            this.input_message = '';
+          });
+        })
       });
-    });
-    const curr_time = new Date();
-    const source_lang = this._dashboard.lang_setting.lang_spoken.split('-')[0];
-    const observable3 = this._httpService.getTranslation(encodeURI(this.input_message), source_lang, this._dashboard.lang_setting.lang_to);
-    observable3.subscribe(data => {
-      this._dashboard.all_translations.push([data['data']['translations'][0]['translatedText'],
-      curr_time.toLocaleTimeString() + ' (chat - ' + this._shareService.my_user_name + ')']);
-    });
+    }
   }
   updateChatBox() {
     const observable = this._httpService.getSingleSession(this.current_session_id);
     observable.subscribe((data: any) => {
-      console.log('Got a single session. Result:', data);
       document.getElementById('chat_box').innerHTML = data.data.chat_content;
     });
   }

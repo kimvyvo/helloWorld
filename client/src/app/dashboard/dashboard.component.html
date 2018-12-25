@@ -1,32 +1,29 @@
-<div class='row p-0 m-0'>  
-    <h4 id='leave' class='col col-sm-4 m-0 p-2'><i class="fas fa-globe-americas"></i> Session ID: {{ selected_session }}</h4>
-    <button [routerLink]="['/dashboard', selected_session, 'text']" class='col'>text</button>
-    <button [routerLink]="['/dashboard', selected_session, 'video']" class='col'>video</button>
-    <button [routerLink]="['/dashboard', selected_session, 'draw']" class='col'>draw</button>
-    <button [routerLink]="['/dashboard', selected_session, 'watch']" class='col'>watch</button>
-    <button id='leave' (click)="leaveSite()" class='col col-sm-1 border border-light'>Leave</button>
+<div id='tabs' class='row d-flex justify-content-center p-1 m-0'>  
+    <h4 class='col col-sm-4 m-0 p-2 d-flex align-items-center justify-content-center font-3 bg-light-blue border-white'><i class="fas fa-globe-americas px-2"></i> Chat Room ID: {{ selected_session }}</h4>
+    <button [routerLink]="['/dashboard', selected_session, 'text']" class='col bg-dark-blue text-light border-white'><h4 class='m-0'>text</h4></button>
+    <button [routerLink]="['/dashboard', selected_session, 'draw']" class='col bg-dark-blue text-light border-white'><h4 class='m-0'>write</h4></button>
+    <button class='col bg-light py-3 text-dark-blue border-white' (click)="download('transcript.txt', all_translations)"><h4 class='m-0'>download transcript</h4></button>
+    <button (click)="leaveSite()" class='col col-sm-1 bg-light-blue border-white'><h4 class='m-0'>leave</h4></button>
 </div>
-<div class='m-0 p-3'>
-    <div class='row'>
-        <div class='col col-sm-8'>
+<div class='m-0 p-1 row'>
+    <div class='col-md-8 m-0 py-0 px-1 content-box'>
+        <div id='left_box'>
             <router-outlet></router-outlet>
         </div>
-        <div class='col col-sm-4'>
-            <div id='select_lang' class='col border-thicc py-3'>
+    </div>
+    <div class='col-md-4 m-0 py-0 px-1 d-flex content-box'>
+        <div>
+            <div class='col py-3 bg-light border-black align-self-start'>
                 <label for="lang_spoken" class='col-sm-5 text-right'>Translate from:  </label>
                 <select name="lang_spoken" [(ngModel)]="lang_setting.lang_spoken" class='col-sm-5'>
                     <option *ngFor="let lang of lang_list" value="{{lang[1]}}">{{lang[0]}}</option>
                 </select><br>
-                <label for="lang_to" class='col-sm-5 text-right'>Translate to: </label>
+                <label for="lang_to" class='col-sm-5 m-0 text-right'>Translate to: </label>
                 <select name="lang_to" [(ngModel)]="lang_setting.lang_to" class='col-sm-5'>
                     <option *ngFor="let lang of google_lang_list" value="{{lang[1]}}">{{lang[0]}}</option>
                 </select>
             </div>
-            <div id='chat_box' class='p-3'>
-                <span *ngFor="let translation of all_translations">{{translation[1]}} {{translation[0]}}<br></span>
-            </div>
-            <button class='col bg-light text-dark border-thicc py-3' (click)="download('transcript.txt', all_translations)">download</button>
+            <div id='trans_box' class='p-3'></div>
         </div>
-    </div>  
-    
+    </div>
 </div>

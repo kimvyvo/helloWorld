@@ -8,32 +8,6 @@ body{
     margin: 0px;
     padding: 0px;
 }
-h2, h3, h4, h5, h6, button{
-    font-family: 'Short Stack', cursive;
-    font-family: 'Crimson Text', serif;
-    font-family: 'Josefin Slab', serif;
-    font-family: 'Cantarell', sans-serif;
-    font-family: 'Gochi Hand', cursive;
-}
-div, p{
-    font-family: Verdana;
-}
-div#white{
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(120deg, #f8f9fa 50%, rgba(0,0,0,0) 50%);
-}
-div#blue{
-    height: 100vh;
-    width: 100vw;
-    overflow-y: scroll;
-    background: linear-gradient(90deg, #cce0e9, #f8f9fa);
-    background-size: 400% 400%;
-    
-    -webkit-animation: AnimationName 8s ease infinite;
-    -moz-animation: AnimationName 8s ease infinite;
-    animation: AnimationName 8s ease infinite;
-}
 @-webkit-keyframes AnimationName {
     0%{background-position:0% 33%}
     50%{background-position:100% 68%}
@@ -49,74 +23,85 @@ div#blue{
     50%{background-position:100% 68%}
     100%{background-position:0% 33%}
 }
-h1#hello{
-    color: #48809c;
-    font-family: 'Sacramento', cursive;
-    font-family: 'Gloria Hallelujah', cursive;
-    font-size: 200%;
+div, p{
+    font-family: Verdana;
 }
-h1#world{
-    color: #48809c;
-    font-family: 'Sacramento', cursive;
-    font-family: 'Gloria Hallelujah', cursive;
-    font-family: 'Fredericka the Great', cursive;
-    font-size: 500%;
-}
-p#subtitle{
-    color: #48809c;
+button{
     font-family: 'Short Stack', cursive;
     font-family: 'Crimson Text', serif;
     font-family: 'Josefin Slab', serif;
     font-family: 'Cantarell', sans-serif;
     font-family: 'Gochi Hand', cursive;
-    font-size: 150%;
 }
-h2{
+.font-1 {
+    font-family: 'Sacramento', cursive;
+    font-family: 'Gloria Hallelujah', cursive;
+}
+.font-2 {
+    font-family: 'Sacramento', cursive;
+    font-family: 'Gloria Hallelujah', cursive;
+    font-family: 'Fredericka the Great', cursive;
+}
+.font-3 {
+    font-family: 'Short Stack', cursive;
+    font-family: 'Crimson Text', serif;
+    font-family: 'Josefin Slab', serif;
+    font-family: 'Cantarell', sans-serif;
+    font-family: 'Gochi Hand', cursive;
+}
+.text-dark-blue {
     color: #48809c;
 }
-button{
-    background: #48809c;
-    color: #f8f9fa;
-    font-size: 150%;
-}
-.circle{
-    background: #48809c;
-    width: 400px;
-    height: 400px;
-    padding: 120px 0px;
-    border-radius: 50%;
-}
-input{
-    font-size: 80%
-}
-button#top{
-    background: #f8f9fa;
-    width: 400px;
-    height: 200px;
-    border-top: 20px solid #cbdfe9;
-    border-top-left-radius: 220px;
-    border-top-right-radius: 220px;
-    color: #48809c;
-    font-size: 200%
-}
-button#bottom{
-    background: #48809c;
-    width: 400px;
-    height: 200px;
-    border-bottom-left-radius: 220px;
-    border-bottom-right-radius: 220px;
-    color: #48809c;
-    font-size: 200%;
-}
-.round{
-    border-radius: 20px;
-}
-
-.blue{
-    color: #48809c;
-}
-
-.bg-blue{
+.bg-dark-blue{
     background: #48809c;
     color:  #f8f9fa;
+}
+.bg-light-blue {
+    background: #cbdfe9;
+    color: #48809c;
+}
+.border-black{
+    border: 2px solid black;
+}
+.border-rad{
+    border-radius: 20px;
+}
+.text-shadow-1 {
+    text-shadow: 1px 1px black;
+}
+.text-shadow-2 {
+    text-shadow: 4px 4px black;
+}
+.zigzag-1 {
+    background: linear-gradient(-135deg, white 50%, transparent 0) 0 15px, linear-gradient(315deg, white 50%, transparent 0) 0 50%;
+    background-repeat: repeat-y;
+    background-size: 30px 31px;
+ }
+ .zigzag-2 {
+    background: linear-gradient(-135deg, transparent 50%, #48809c 0) 0 15px, linear-gradient(-225deg, #48809c 50%, transparent 0) 0 50%;
+    background-position: right;
+    background-repeat: repeat-y;
+    background-size: 30px 31px;
+ }
+h1#hello{
+    font-size: 200%;
+}
+h1#world{
+    font-size: 500%;
+}
+div#blue-gradient{
+    height: 100vh;
+    width: 100vw;
+    overflow-y: scroll;
+    background: linear-gradient(90deg, white, #cce0e9, rgb(108, 156, 180));
+    background-size: 400% 400%;
+    
+    -webkit-animation: AnimationName 10s ease infinite;
+    -moz-animation: AnimationName 10s ease infinite;
+    animation: AnimationName 10s ease infinite;
+}
+div#white{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(120deg, #f8f9fa 50%, rgba(0,0,0,0) 50%);
 }

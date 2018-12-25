@@ -1,12 +1,17 @@
-<div id='blue' class='position-fixed p-0 m-0'>
-  <div id='white' class='col p-0 position-fixed'></div>
-  <div class='col px-5 pt-5 pb-0 text-center'>
-    <h1 id='hello' class='m-0'>hello </h1> 
-    <h1 id='world' class='d-inline align-middle'>W<i class="fas fa-globe-americas"></i>RLD</h1>
-    <p id='subtitle'>Your Life, Translated <i class="fas fa-comments"></i></p>
-  </div>
-  <div class='col pt-3 text-center'>
-    <button id='top' class='btn' (click)="showCreatePrompt()">start session</button><br>
-    <button id='bottom' class='btn text-light' (click)="showJoinPrompt()">join session</button>
+<div id='blue-gradient' class='position-fixed p-5 m-0 d-flex align-items-center justify-content-center'>
+  <!-- <div id='white' class='col p-0 position-fixed'></div> -->
+  <div>
+    <div class='col p-0 mx-auto mb-4 text-center'>
+      <h1 id='hello' class='m-0 font-1 text-dark-blue text-shadow-1'>hello </h1> 
+      <h1 id='world' class='d-inline align-middle font-2 text-dark-blue text-shadow-1'>W<i class="fas fa-globe-americas text-shadow-2"></i>RLD</h1>
+      <h4 class='font-3 text-dark-blue text-shadow-1'>Your Life, Translated <i class="fas fa-comments"></i></h4>
+    </div>
+    <div class='px-3 mb-4 zigzag-1'>
+      <button class='btn col p-3 bg-white text-dark-blue' (click)="showCreatePrompt()"><h4 class='m-0'>new chat room</h4></button>
+    </div>
+    <div class='px-3 zigzag-2'>
+      <button class='btn col p-3 bg-dark-blue' (click)="showJoinPrompt()"><h4 class='m-0'>join chat room</h4></button>
+    </div>
   </div>
 </div>
+<div class='col m-0 py-1 position-fixed text-center font-3 text-dark-blue' style='bottom: 0;'><h6>Developed by Katie Lee, Kevin (Tiange) Wang, & Kim Vy Vo</h6></div>

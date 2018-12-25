@@ -4,19 +4,12 @@
   margin: 0;
   width: 100%;
   height: 100%;
+  white-space: wrap;
 }
 
-#chat_box {
+#draw_box {
     height: 75vh;
-    border: 2px solid black;
     overflow-y: auto;
+    overflow-x: hidden;
     white-space: wrap;
-}
-button{
-    color:  #f8f9fa
-}
-
-.border-thicc{
-    border: 2px solid black;
-    border-bottom: none;
 }

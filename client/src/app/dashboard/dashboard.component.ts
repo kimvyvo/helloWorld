@@ -10,7 +10,7 @@ import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrie
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  all_translations = [];
+  all_translations = '';
   all_exports = '';
   socket: SocketIOClient.Socket;
   selected_session = '';
@@ -179,7 +179,10 @@ export class DashboardComponent implements OnInit {
       this.selected_session = params.id;
       this._shareService.setSocket(this.socket);
       this.socket.emit('new_user', {id: this._shareService.my_user_id, sid: params.id});
-      console.log(this._shareService.my_user_id);
+      this._shareService.socket.on('receive_text', () => {
+        this.updateTranslations();
+      });
+      this.getTranslations();
       // this._shareService.socket.on('new_export_is_here', () => {
       //   this.all_exports = this._shareService.exported_texts;
       // });
@@ -207,24 +210,17 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  getTranslations(){
+    const observable = this._httpService.getSingleSession(this.selected_session);
+    observable.subscribe((data: any) => {
+      document.getElementById('trans_box').innerHTML = data.data.trans_content;
+    })
+  }
 
-  // leaveSite() {
-  //   const observable = this._httpService.deleteUser(this._shareService.my_user_id, this.selected_session);
-  //   observable.subscribe((data: any) => {
-  //     console.log('Deleted a user. Result:', data);
-  //     const observable2 = this._httpService.getSingleSession(this.selected_session);
-  //     observable2.subscribe((data2: any) => {
-  //       console.log(data2.data.users);
-  //       if (data2.data.users.length === 0) {
-  //         const observable3 = this._httpService.deleteSession(this.selected_session);
-  //         observable3.subscribe((data3: any) => {
-  //           console.log('Deleted a session. Result:', data3);
-  //           this.socket.disconnect();
-  //         });
-  //       } else {
-  //         this.socket.disconnect();
-  //       }
-  //     });
-  //   });
-  // }
+  updateTranslations() {
+    const observable = this._httpService.getSingleSession(this.selected_session);
+    observable.subscribe((data: any) => {
+      document.getElementById('trans_box').innerHTML = data.data.trans_content;
+    });
+  }
 }

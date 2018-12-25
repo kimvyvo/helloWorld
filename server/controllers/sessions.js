@@ -33,6 +33,7 @@ module.exports = {
     },
     update: function(req, res){
         Session.findOneAndUpdate({_id: req.params.id}, {$set: req.body}, { runValidators: true }, function(err){
+            console.log('REQ.BODY', req.body.trans_content)
             if(err){
                 console.log('Something went wrong when updating a session, detail: ', err);
                 res.json({message: 'Error', error: err});

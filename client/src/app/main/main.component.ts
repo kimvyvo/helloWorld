@@ -37,10 +37,10 @@ export class MainComponent implements OnInit {
     });
   }
   showCreatePrompt() {
-    const name = prompt('Please enter your name');
+    const name = prompt('Your name: ');
     if (name != null) {
       if (name === '') {
-        alert('Name cannot be blank');
+        alert('Name cannot be blank.');
       } else {
         this.create_name = name;
         this.createSession();
@@ -52,12 +52,12 @@ export class MainComponent implements OnInit {
     observable.subscribe((data: any) => {
       console.log(data);
       if (data.data == null) {
-        alert('No session with this ID was found');
+        alert('No chat room with this ID was found');
       } else {
-        const name = prompt('Please enter your name');
+        const name = prompt('Your name: ');
         if (name != null) {
           if (name === '') {
-            alert('Name cannot be blank');
+            alert('Name cannot be blank.');
           } else {
             const observable2 = this._httpService.addUser(this.session_id, {name: name});
             observable2.subscribe((data2: any) => {
@@ -71,10 +71,10 @@ export class MainComponent implements OnInit {
     });
   }
   showJoinPrompt() {
-    const session = prompt('Plase enter the session id');
+    const session = prompt('Please enter the chat room ID: ');
     if (session != null) {
       if (session === '') {
-        alert('Session ID cannot be blank');
+        alert('Chat room ID cannot be blank.');
       } else {
         this.session_id = session;
         this.joinSession();

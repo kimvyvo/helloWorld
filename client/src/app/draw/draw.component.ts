@@ -18,8 +18,6 @@ export class DrawComponent implements AfterViewInit {
   @ViewChild('tref', {read: ElementRef}) domEditor: ElementRef;
   editor;
   ngAfterViewInit(): void {
-    // your code
-     console.log(this.domEditor.nativeElement);
      this.editor = MyScriptJS.register(this.domEditor.nativeElement, {
       recognitionParams: {
         type: 'TEXT',
@@ -35,19 +33,20 @@ export class DrawComponent implements AfterViewInit {
     });
   }
   getExports() {
-    // this.editor.export_((data) => {
-    //   console.log(data);
-    // });
-    // this.txt = this.editor.export_();
     const curr_time = new Date();
-    const observable3 = this._httpService.getTranslation(this.editor.model.exports['text/plain'],
+    const observable = this._httpService.getTranslation(this.editor.model.exports['text/plain'],
       'en', this._dashboard.lang_setting.lang_to);
-    observable3.subscribe(data => {
-      this._dashboard.all_translations.push([data['data']['translations'][0]['translatedText'],
-      curr_time.toLocaleTimeString() + ' (draw - ' + this._shareService.my_user_name + ')']);
-    });
-    // this._shareService.addText(this.editor.model.exports['text/plain']);
-    // this._shareService.socket.emit('got_new_export');
-  }
+    observable.subscribe(data => {
 
+      const observable2 = this._httpService.getSingleSession(this._dashboard.selected_session);
+      observable2.subscribe((data2: any) => {
+        const new_trans = '<div class="mb-1"><small>' + this._shareService.my_user_name + ' (written)</small></div>' + '<div class="col m-0 p-2 bg-light border-rad">' + data['data']['translations'][0]['translatedText'] + '</div>' + '<div class="col text-right"><small>' + curr_time.toLocaleTimeString() + '</small></div>' + data2.data.trans_content
+          
+        const observable3 = this._httpService.editSession(this._dashboard.selected_session, {trans_content: new_trans});
+        observable3.subscribe((data3: any) => {
+          this._shareService.socket.emit('send_text');
+        });
+      })
+    });
+  }
 }
